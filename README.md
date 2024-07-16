@@ -30,7 +30,7 @@ Welcome to WATI (What AI)! This is an AI assistant programmed to handle various 
    - Ensure `Aidata.py` contains the text generation model setup (`load_text_generation_model()`).
 
 4. **Run the Program**:
-   - Execute `python your_program_name.py` to start the WATI Assistant.
+   - Execute `python Ai.py` to start the WATI Assistant.
 
 ## Usage
 
