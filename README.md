@@ -1,6 +1,6 @@
 # WATI Assistant README
 
-Welcome to WATI (What AI)! This is an AI assistant programmed to handle various types of questions and tasks. Below are details on how to set up and use the assistant effectively.
+Welcome to WATI (Wise Ai for Textual Interaction)! This is an AI assistant programmed to handle various types of questions and tasks. Below are details on how to set up and use the assistant effectively.
 
 ## Features
 
