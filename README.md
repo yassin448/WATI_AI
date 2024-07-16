@@ -97,6 +97,18 @@ exit
 ```
 WATI 2.0: Goodbye!
 ```
+### Example 6: Additional Command 
+
+**User Input**:  
+```
+the question then --no dataset
+```
+
+**Expected Output**:  
+```
+WATI 2.0: (Output will use GPT2 only while answering this Question)
+```
+
 
 ## Feedback
 
