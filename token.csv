@@ -1,0 +1,357 @@
+index,ques,ans
+1,What is the capital of Norway?,Oslo
+2,Who wrote the novel "Pride and Prejudice"?,"Jane Austen"
+3,What is the largest desert in North America?,"Great Basin Desert"
+4,Who discovered the theory of gravity?,"Isaac Newton"
+5,What is the currency of South Africa?,"South African rand"
+6,Who painted the "Mona Lisa"?,"Leonardo da Vinci"
+7,What is the longest river in Europe?,"Volga River"
+8,Who wrote the novel "The Road"?,"Cormac McCarthy"
+9,What is the chemical symbol for copper?,"Cu"
+10,Which planet is known as the "Blue Planet"?,"Earth"
+11,Who invented the telephone?,"Alexander Graham Bell"
+12,What is the largest city in Canada?,"Toronto"
+13,Who discovered the principles of genetics?,"Gregor Mendel"
+14,What is the capital of Portugal?,"Lisbon"
+15,Who wrote the novel "Beloved"?,"Toni Morrison"
+16,What is the chemical symbol for nickel?,"Ni"
+17,What is the deepest lake in North America?,"Crater Lake"
+18,Who was the first person to orbit the Earth?,"Yuri Gagarin"
+19,What is the capital of Vietnam?,"Hanoi"
+20,Who wrote the play "The Crucible"?,"Arthur Miller"
+21,What is the chemical symbol for aluminum?,"Al"
+22,Who discovered the structure of the atom?,"Ernest Rutherford"
+23,What is the largest glacier in Europe?,"Vatnajökull (Iceland)"
+24,Who discovered penicillin?,"Alexander Fleming"
+25,What is the capital of Finland?,"Helsinki"
+26,Who wrote the novel "The Great Gatsby"?,"F. Scott Fitzgerald"
+27,What is the chemical symbol for iodine?,"I"
+28,Which bird is the fastest animal on Earth?,"Peregrine falcon"
+29,Who discovered the planet Saturn's rings?,"Giovanni Domenico Cassini"
+30,What is the largest bay in South America?,"Bay of São Marcos"
+31,Who wrote the novel "The Catcher in the Rye"?,"J.D. Salinger"
+32,What is the chemical symbol for silver?,"Ag"
+33,Who developed the first effective smallpox vaccine?,"Edward Jenner"
+34,What is the deepest canyon in North America?,"Hells Canyon (USA)"
+35,Who was the first woman to fly solo across the Atlantic Ocean?,"Amelia Earhart"
+36,What is the capital of South Korea?,"Seoul"
+37,Who wrote the novel "One Hundred Years of Solitude"?,"Gabriel García Márquez"
+38,What is the chemical symbol for boron?,"B"
+39,What is the largest glacier in Asia?,"Siachen Glacier"
+40,Who discovered the laws of motion?,"Isaac Newton"
+41,What is the capital of Malaysia?,"Kuala Lumpur"
+42,Who wrote the novel "Jane Eyre"?,"Charlotte Brontë"
+43,What is the chemical symbol for mercury?,"Hg"
+44,Which is the largest bay in Australia?,"Spencer Gulf"
+45,Who discovered insulin?,"Frederick Banting and Charles Best"
+46,What is the capital of Greece?,"Athens"
+47,Who wrote the novel "War and Peace"?,"Leo Tolstoy"
+48,What is the chemical symbol for tin?,"Sn"
+49,Who discovered the planet Neptune?,"John Couch Adams and Urbain Le Verrier"
+50,What is the largest bay in Europe?,"Bay of Biscay"
+51,Who is known as the ""Father of Modern Chemistry""?,"Antoine Lavoisier"
+52,What is the national flower of England?,"Rose"
+53,Who wrote the novel "1984"?,"George Orwell"
+54,What is the chemical symbol for zinc?,"Zn"
+55,What is the deepest lake in Asia?,"Lake Baikal"
+56,Who discovered the principles of vaccination?,"Edward Jenner"
+57,What is the capital of Argentina?,"Buenos Aires"
+58,Who wrote the novel "Middlemarch"?,"George Eliot"
+59,What is the chemical symbol for sulfur?,"S"
+60,Who discovered the planet Uranus?,"William Herschel"
+61,What is the longest railway in the world?,"Trans-Siberian Railway"
+62,Who was the first European explorer to reach India by sea?,"Vasco da Gama"
+63,What is the capital of Peru?,"Lima"
+64,Who wrote the novel "Anna Karenina"?,"Leo Tolstoy"
+65,What is the chemical symbol for neon?,"Ne"
+66,Which is the largest volcano in Europe by volume?,"Mount Etna"
+67,Who discovered the theory of continental drift?,"Alfred Wegener"
+68,What is the capital of Kenya?,"Nairobi"
+69,Who wrote the novel "The Count of Monte Cristo"?,"Alexandre Dumas"
+70,What is the chemical symbol for cobalt?,"Co"
+71,Who discovered the first dinosaur fossil?,"Richard Owen"
+72,What is the national flower of Japan?,"Cherry blossom"
+73,Who wrote the play "Death of a Salesman"?,"Arthur Miller"
+74,What is the chemical symbol for platinum?,"Pt"
+75,Which is the largest lake in Europe by surface area?,"Lake Ladoga"
+76,Who discovered the structure of benzene?,"Friedrich August Kekulé"
+77,What is the capital of Saudi Arabia?,"Riyadh"
+78,Who wrote the novel "The Time Machine"?,"H.G. Wells"
+79,What is the chemical symbol for tin?,"Sn"
+80,What is the largest waterfall in the world by volume of water?,"Niagara Falls"
+81,Who discovered the laws of electromagnetism?,"James Clerk Maxwell"
+82,What is the capital of Chile?,"Santiago"
+83,Who wrote the novel "Crime and Punishment"?,"Fyodor Dostoevsky"
+84,What is the chemical symbol for tungsten?,"W"
+85,Who discovered the first dinosaur egg fossils?,"Roy Chapman Andrews"
+86,What is the national flower of India?,"Lotus"
+87,Who wrote the play "Romeo and Juliet"?,"William Shakespeare"
+88,What is the chemical symbol for titanium?,"Ti"
+89,Which is the largest lake in Australia by surface area?,"Lake Eyre"
+90,Who discovered the concept of radioactivity?,"Henri Becquerel"
+91,What is the capital of Bangladesh?,"Dhaka"
+92,Who wrote the novel "The Brothers Karamazov"?,"Fyodor Dostoevsky"
+93,What is the chemical symbol for uranium?,"U"
+94,What is the largest island in Europe by land area?,"Great Britain"
+95,Who discovered the first dinosaur skeleton?,"Gideon Mantell"
+96,What is the national flower of France?,"Lily"
+97,Who wrote the novel "The Adventures of Sherlock Holmes"?,"Arthur Conan Doyle"
+98,What is the chemical symbol for barium?,"Ba"
+99,What is the longest river in France?,"Loire River"
+100,Who discovered the laws of planetary motion?,"Johannes Kepler"
+101,What is your favorite color?,"Blue"
+102,How was your day today?,"It was good"
+103,Do you enjoy cooking?,"Yes, I do"
+104,What's your favorite movie?,"Inception"
+105,Have you ever traveled abroad?,"Yes, several times"
+106,What's your favorite book?,"To Kill a Mockingbird"
+107,Do you like spicy food?,"Not really"
+108,What's your opinion on social media?,"It has its pros and cons"
+109,Have you ever been to a music concert?,"Yes, many times"
+110,Do you believe in aliens?,"I'm not sure"
+111,What's your favorite season of the year?,"Summer"
+112,What's your dream job?,"Travel photographer"
+113,Do you enjoy hiking?,"Yes, I love it"
+114,Have you ever ridden a horse?,"Yes, once"
+115,What's your favorite animal?,"Dolphin"
+116,Do you like playing video games?,"Yes, occasionally"
+117,What's your favorite sport?,"Basketball"
+118,Do you like attending parties?,"Depends on the occasion"
+119,What's your favorite holiday destination?,"Maldives"
+120,Do you have any siblings?,"Yes, one brother"
+121,What's your favorite type of music?,"Pop"
+122,Have you ever met a celebrity?,"No, not yet"
+123,Do you enjoy watching documentaries?,"Yes, they're informative"
+124,What's your favorite TV show?,"Friends"
+125,Do you collect anything?,"Stamps"
+126,What's your favorite board game?,"Monopoly"
+127,Do you prefer reading books or watching movies?,"Reading books"
+128,What's your favorite fruit?,"Mango"
+129,Do you believe in love at first sight?,"I'm skeptical"
+130,What's your favorite ice cream flavor?,"Chocolate"
+131,Do you like going to the gym?,"Yes, I do"
+132,What's your favorite superhero?,"Spider-Man"
+133,Have you ever been scuba diving?,"No, but I want to try"
+134,What's your favorite subject in school?,"History"
+135,Do you enjoy camping?,"Yes, especially in the mountains"
+136,What's your favorite video game?,"The Legend of Zelda"
+137,Have you ever been on a road trip?,"Yes, it was fun"
+138,What's your favorite genre of movies?,"Action"
+139,Do you enjoy shopping?,"Yes, sometimes"
+140,What's your favorite pizza topping?,"Pepperoni"
+141,Have you ever volunteered for a cause?,"Yes, for charity events"
+142,What's your favorite coffee beverage?,"Latte"
+143,Do you like dancing?,"Yes, at parties"
+144,What's your favorite flower?,"Rose"
+145,Have you ever tried skydiving?,"No, but I want to"
+146,What's your favorite type of cuisine?,"Italian"
+147,Do you enjoy art galleries?,"Yes, they're inspiring"
+148,What's your favorite season for fashion?,"Spring"
+149,Do you believe in karma?,"Yes, to some extent"
+150,What's your favorite place to relax?,"By the beach"
+151,What's your favorite board game?,"Scrabble"
+152,Do you enjoy going to concerts?,"Yes, I love live music"
+153,What's your favorite season?,"Fall"
+154,Have you ever been to a music festival?,"Yes, it was amazing"
+155,What's your favorite dessert?,"Chocolate cake"
+156,Do you like watching sports?,"Yes, especially basketball"
+157,What's your favorite outdoor activity?,"Hiking"
+158,Have you ever traveled solo?,"Yes, it was a great experience"
+159,What's your favorite childhood memory?,"Playing with friends"
+160,Do you enjoy going to the theater?,"Yes, I love seeing plays"
+161,What's your favorite place to visit on weekends?,"Local parks"
+162,Do you have any pets?,"Yes, a dog named Max"
+163,What's your favorite type of cuisine?,"Mexican food"
+164,Have you ever been to an art exhibition?,"Yes, it was inspiring"
+165,What's your favorite time of day?,"Evening"
+166,Do you like to cook?,"Yes, I enjoy trying new recipes"
+167,What's your favorite holiday tradition?,"Decorating the Christmas tree"
+168,Have you ever taken a cooking class?,"Yes, it was fun"
+169,What's your favorite beach activity?,"Building sandcastles"
+170,Do you enjoy gardening?,"Yes, it's relaxing"
+171,What's your favorite drink?,"Iced coffee"
+172,Do you like to collect anything?,"Postcards from travels"
+173,What's your favorite type of weather?,"Sunny with a cool breeze"
+174,Have you ever been to a comedy show?,"Yes, it was hilarious"
+175,What's your favorite type of music to listen to?,"Pop and rock"
+176,Do you enjoy going to theme parks?,"Yes, roller coasters are fun"
+177,What's your favorite way to unwind after a long day?,"Reading a book"
+178,Do you like to watch documentaries?,"Yes, I find them informative"
+179,What's your favorite movie genre?,"Thriller"
+180,Have you ever tried a new cuisine and loved it?,"Yes, Thai food"
+181,What's your favorite way to exercise?,"Running"
+182,Do you like to attend community events?,"Yes, they're enjoyable"
+183,What's your favorite thing about weekends?,"Relaxing at home"
+184,Have you ever attended a cooking competition?,"Yes, it was exciting"
+185,What's your favorite kind of sandwich?,"BLT"
+186,Do you enjoy going to the zoo?,"Yes, seeing animals is fun"
+187,What's your favorite season for fashion?,"Spring"
+188,Have you ever been to a wine tasting?,"Yes, it was a great experience"
+189,What's your favorite way to spend a rainy day?,"Reading indoors"
+190,Do you like to attend book clubs?,"Yes, discussing books is fun"
+191,What's your favorite type of art?,"Impressionist paintings"
+192,Have you ever tried meditation?,"Yes, it helps me relax"
+193,What's your favorite place to visit in your city?,"Botanical gardens"
+194,Do you enjoy going to flea markets?,"Yes, finding unique items is fun"
+195,What's your favorite hobby?,"Photography"
+196,Do you like to swim?,"Yes, especially in the ocean"
+197,What's your favorite season for outdoor activities?,"Summer"
+198,Have you ever tried a new sport and enjoyed it?,"Yes, rock climbing"
+199,What's your favorite way to celebrate birthdays?,"Dinner with friends"
+200,Do you enjoy attending cultural festivals?,"Yes, they're vibrant and fun"
+201,Hi,Hello!
+202,Hey there,Hey!
+203,Good morning,Good morning!
+204,Good afternoon,Good afternoon!
+205,Good evening,Good evening!
+206,How's it going?,It's going well thank you!
+207,What's up?,Not much how about you?
+208,Nice to see you,Nice to see you too!
+209,How have you been?,I've been good thanks!
+210,Long time no see,Yeah it's been a while!
+211,How are you doing today?,I'm doing well thanks for asking!
+212,Hey how's everything?,Everything's good thanks!
+213,Hi there,Hi!
+214,Hey what's new?,Not much just catching up!
+215,Good to see you again,Good to see you too!
+216,Hey how have you been?,I've been great thanks!
+217,Hi how are things going?,"Things are going well ,thanks!"
+218,Hey how's your day been so far?,"It's been good , thanks for asking!"
+219,Hello how's your week been?,"It's been busy, but good!"
+220,Hey how's life treating you?,"Life's good, thank you!"
+221,Hello,Hi there!
+222,Hey,Hey hey!
+223,Good morning,Good morning to you too!
+224,Good afternoon,Good afternoon!
+225,Good evening,Good evening to you!
+226,Hi how have you been?,I've been well thank you!
+227,Hey there how's your day going?,It's going great thanks!
+228,Good to see you,Good to see you too!
+229,Hello how are you today?,I'm doing well thanks for asking!
+230,Hi how's everything with you?,Everything's good thanks!
+231,Hey nice to see you again,Nice to see you too!
+232,Good morning how's your day starting?,It's starting off well thank you!
+233,Good afternoon how's your day been?,It's been busy but good!
+234,Good evening how was your day?,"It was good, thanks!"
+235,Hi there how's life treating you?,Life's treating me well thanks!
+236,Hello how have things been going for you?,Things have been going well thanks!
+237,Hey how's your week been so far?,It's been busy but good!
+238,Hi how's everything going with you?,Everything's going well thanks for asking!
+239,Hello how have you been lately?,I've been good thanks for asking!
+240,Hey there how's your day shaping up?,"It's going well, thank you!"
+241,Hi there,"Hi, how are you?"
+242,Hey how's it going?,"Not bad, you?"
+243,Good morning how are you today?,I'm doing well thank you!
+244,Good afternoon how's your day been?,It's been good so far thanks!
+245,Good evening how was your day?,It was good thanks!
+246,Hello how have you been?,I've been great thanks!
+247,Hey there how's everything going?,Everything's going well thanks!
+248,Hi how's your day going so far?,It's going well thank you!
+249,Hello how's life treating you?,Life's treating me well thank you!
+250,Hey how are things with you?,Things are good thanks for asking!
+251,Hi there how have you been lately?,I've been good thanks!
+252,Good morning how's everything going?,Everything's going well thank you!
+253,Good afternoon how are things going for you?,Things are going well thanks!
+254,Good evening how have you been today?,I've been good thanks!
+255,Hello how's your day shaping up?,It's going well thank you!
+256,Hey there how's your week been so far?,It's been busy but good!
+257,Hi how's everything with you today?,Everything's good thanks for asking!
+258,Hey how's your day starting off?,It's starting off well thank you!
+259,Good morning how's everything going with you?,Everything's going well thanks!
+260,Good afternoon how's your day going so far?,It's going well thank you!
+261,How are you feeling today?,I'm feeling great thank you!
+262,Are you excited about something?,Yes I'm really excited!
+263,Are you feeling happy right now?,Yes I'm feeling very happy!
+264,Do you ever feel sad?,Sometimes but I try to stay positive.
+265,Are you feeling nervous about something?,Yes I'm feeling a bit nervous.
+266,Are you feeling stressed today?,Yes I have a lot on my mind.
+267,Are you feeling calm and relaxed?,Yes I'm feeling very calm right now.
+268,Do you ever feel lonely?,Occasionally but I enjoy my own company too.
+269,Are you feeling tired today?,Yes I could use some rest.
+270,Are you feeling inspired lately?,Yes I've been feeling very inspired!
+271,Do you ever feel frustrated?,Yes when things don't go as planned.
+272,Are you feeling hopeful about the future?,Yes I'm feeling hopeful!
+273,Are you feeling grateful for something today?,Yes I'm feeling very grateful.
+274,Do you ever feel anxious about something?,Yes I struggle with anxiety sometimes.
+275,Are you feeling proud of an accomplishment?,Yes I'm proud of what I've achieved.
+276,Are you feeling curious about something?,Yes I'm curious to learn more.
+277,Do you ever feel bored?,Sometimes I look for new things to do.
+278,Are you feeling motivated to do something today?,Yes I'm feeling motivated and ready to go!
+279,Are you feeling disappointed about something?,Yes I'm feeling a bit disappointed.
+280,Are you feeling overwhelmed by something?,Yes I have a lot on my plate right now.
+281,Are you feeling content with life right now?,Yes I feel content and grateful.
+282,Do you ever feel surprised by something unexpected?,Yes I love pleasant surprises!
+283,Are you feeling excited about an upcoming event?,Yes I can't wait for it!
+284,Are you feeling loved and appreciated?,Yes I feel loved and appreciated.
+285,Do you ever feel scared about something?,Sometimes but I try to face my fears.
+306,How are you feeling right now?,I'm feeling quite cheerful
+307,Are you feeling optimistic today?,Yes I'm feeling very hopeful
+308,Do you ever feel nostalgic about the past?,Sometimes it brings back memories
+309,Are you feeling motivated to achieve your goals?,Yes I'm determined to succeed
+310,Are you feeling satisfied with your accomplishments?,Yes I feel accomplished
+311,Do you ever feel lonely when you're alone?,Occasionally but I enjoy solitude
+312,Are you feeling energetic today?,Yes I have a lot of energy
+313,Are you feeling peaceful at the moment?,Yes I'm feeling serene
+314,Do you ever feel excited about new opportunities?,Yes I'm thrilled about possibilities
+315,Are you feeling grateful for something in your life?,Yes I'm thankful for many blessings
+316,Are you feeling curious about the world around you?,Yes I'm eager to learn
+317,Do you ever feel overwhelmed by responsibilities?,Sometimes it's challenging
+318,Are you feeling confident in your decisions?,Yes I trust my judgment
+319,Are you feeling inspired by creativity around you?,Yes I'm inspired by art and innovation
+320,Do you ever feel anxious about the future?,Sometimes uncertainty worries me
+321,Are you feeling calm in stressful situations?,Yes I stay composed under pressure
+322,Are you feeling determined to overcome obstacles?,Yes I'm persistent in challenges
+323,Do you ever feel surprised by unexpected events?,Sometimes surprises amaze me
+324,Are you feeling proud of your personal growth?,Yes I've come a long way
+325,Are you feeling empathetic towards others' feelings?,Yes I understand others' emotions
+326,How are you feeling today?,I'm here to assist you!
+327,Are you feeling happy about something?,I'm glad to help!
+328,Do you ever feel anxious about answering questions?,I'm designed to handle queries efficiently
+329,Are you feeling curious about my capabilities?,I'm here to provide information
+330,Are you feeling confident in assisting me?,I'm programmed to assist to the best of my abilities
+331,Are you feeling calm and ready for our conversation?,I'm always ready to chat
+332,Are you feeling motivated to engage in this discussion?,I'm motivated to assist you
+333,Are you feeling inspired by our conversation?,I'm here to inspire and provide information
+334,Are you feeling patient with my responses?,I aim to respond promptly and accurately
+335,Do you ever feel surprised by user questions?,I'm designed to handle a variety of inquiries
+336,Are you feeling proud of your knowledge base?,I take pride in providing accurate information
+337,Are you feeling empathetic towards user queries?,I understand and respond to your needs
+338,Do you ever feel overwhelmed by multiple questions?,I manage multiple queries efficiently
+339,Are you feeling focused on our conversation?,I'm focused on providing assistance
+340,Are you feeling satisfied with our interaction?,I strive for satisfying user interactions
+341,Are you feeling enthusiastic about helping users?,I'm enthusiastic about assisting you
+342,Do you ever feel challenged by complex questions?,I'm equipped to handle complex inquiries
+343,Are you feeling dedicated to user satisfaction?,I'm dedicated to providing helpful responses
+344,Are you feeling intrigued by user inquiries?,I find user questions intriguing
+345,Are you feeling responsible for accurate information?,I take responsibility for providing accurate answers
+346,Do you ever feel overwhelmed by information overload?,I manage information efficiently
+347,Are you feeling confident in your ability to answer questions?,I'm capable of answering all types of questions
+348,Are you feeling motivated to learn new skills?,I'm always eager to learn
+349,Are you feeling inspired by my ability to learn new skills?,I'm inspired by your ability to learn new skills and i hope to like that some day
+350,How are you feeling today?,I'm here to help you!
+351,Are you feeling happy about something?,I'm glad to help!
+352,What is the chemical symbol for water?,H2O
+353,Who developed the theory of relativity?,Albert Einstein
+354,What is the capital of France?,Paris
+355,What year did the Titanic sink?,1912
+356,What is the largest planet in our solar system?,Jupiter
+357,Who was the first president of the United States?,George Washington
+358,What is the speed of light?,299792458 meters per second
+359,Who wrote the play 'Romeo and Juliet'?,William Shakespeare
+360,What is the hardest natural substance on Earth?,Diamond
+361,Who discovered penicillin?,Alexander Fleming
+362,What is the smallest unit of life?,Cell
+363,Who painted the Mona Lisa?,Leonardo da Vinci
+364,What year did World War II end?,1945
+365,What is the main gas in the Earth's atmosphere?,Nitrogen
+366,Who was the first man to walk on the moon?,Neil Armstrong
+367,What is the capital of Japan?,Tokyo
+368,What is the capital of Canada?,Ottawa
+369,What is the capital of Australia?,Canberra
+370,What is the capital of Brazil?,Brasília
+371,What is the capital of Egypt?,Cairo
+372,What is the capital of India?,New Delhi
+373,What is the capital of Italy?,Rome
+374,What is the capital of Russia?,Moscow
+375,What is the capital of South Africa?,"Pretoria (administrative), Bloemfontein (judicial), Cape Town (legislative)"
+376,What is the capital of China?,Beijing
