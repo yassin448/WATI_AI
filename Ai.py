@@ -471,10 +471,6 @@ def on_up_arrow(event):
 
 
 
-
-
-    
-
 # Create chat display area
 chat_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, bg='#1e1e1e', fg='white', font=('Helvetica', 12))
 chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
