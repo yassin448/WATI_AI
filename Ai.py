@@ -11,14 +11,39 @@ from sympy import symbols, Eq, solve
 import concurrent.futures
 import Aidata as fallbackai
 import csv
+from pytube import YouTube
+from youtube_search import YoutubeSearch
+import yt_dlp
+import ffmpeg
+import pyaudio
+import requests
+import threading
 from textblob import TextBlob
-import re
+from pynput import keyboard
+
+
+# Global variable to hold instance of YouTubePlayer
+youtubeplayer = None
+
+#global history
+history = None
+
+#global question
+question = None
+
 # Load spaCy model with word vectors (for semantic similarity)
 nlp = spacy.load("en_core_web_sm")
 
+# Spotify API credentials
+SPOTIPY_CLIENT_ID = '96cd8ef5359a4cd5b346465d474aaa5d'
+SPOTIPY_CLIENT_SECRET = 'efb041e19ebd40199abd505918279dfb'
+
+# OpenWeatherMap API credentials
+WEATHER_API_KEY = 'c27ea1d81b6a244f89ce37c2c535330c'
+
 # Model information
 MODEL_NAME = "WATI"
-MODEL_VERSION = "2.0"
+MODEL_VERSION = "2.2"
 fallbackai.load_text_generation_model()  # Loads the fallback model (GPT-2)
 
 # Ensure feedback.csv file with required headers
@@ -86,6 +111,7 @@ def update_entry(dataset_path, question, answer):
 
 # Function to solve arithmetic/math questions using NLP
 def solve_math(question):
+    question=str(question).lower().replace("solve","")
     math_pattern = r'([\d+\-*/\s\^()]+|sqrt\(\d+\)|log\(\d+\)|sin\(\d+\)|cos\(\d+\)|tan\(\d+\))'
     match = re.search(math_pattern, question)
     if match:
@@ -109,7 +135,7 @@ def solve_equation(question):
             var = symbols(var)
             equation = Eq(eval(lhs), eval(rhs))
             solution = solve(equation, var)
-            return f"The solution to the equation '{matches[0]}' is {solution}."
+            return f"The solution to the equation is {solution}."
         except Exception as e:
             print(f"Error solving equation: {e}")
             return None
@@ -140,68 +166,284 @@ def clear_chat():
     entry.delete(0, tk.END)
     chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Welcome to WATI Assistant! How can I help you today?\n")
 
+# Function to exit the application
+def exit_app():
+    root.destroy()
+    os._exit(0)
 
-# Function to handle the program flow
-def handle_question(question):
-    if question.lower() == 'exit':
-        chat_area.insert(tk.END, "Goodbye!\n")
-        return
-   
-    if "--no dataset" in question.lower():
-                # Convert text to lowercase
-                question = question.lower()
-                # Correct common misspellings
-                question = str(TextBlob(str(question)).correct())
-                # Remove extra whitespace
-                question = re.sub(r'\s+', ' ', question).strip() 
-                model, tokenizer = fallbackai.load_text_generation_model()
-                response = fallbackai.local_text_generation(question.replace("--no dataset",""), model, tokenizer)
-                answer = response
+# Function to get weather information
+def get_weather(question):
+    try:
+        # Extract city name from the question
+        location = extract_location(question)
+        if location:
+            url = f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_API_KEY}&units=metric"
+            response = requests.get(url)
+            weather_data = response.json()
+            if weather_data['cod'] == 200:
+                description = weather_data['weather'][0]['description']
+                temperature = weather_data['main']['temp']
+                return f"The weather in {location} is {description} with a temperature of {temperature}°C."
+            else:
+                return f"Sorry, I couldn't find the weather information for {location}."
+        else:
+            return "Please specify a location to get the weather information."
+    except Exception as e:
+        print(f"Error fetching weather data: {e}")
+        return "Sorry, there was an error fetching the weather information."
+
+# Function to extract location from the question
+def extract_location(question):
+    try:
+        # Remove punctuation and lowercase the question for uniformity
+        clean_question = re.sub(r'[^\w\s]', '', question.lower())
+        # Split the question into words and look for common location indicator
+        words = clean_question.split()
+        if 'weather' in words and 'in' in words:
+            # Find the index of 'in' and get the word after it as location
+            index = words.index('in')
+            return words[index + 1]
+        else:
+            return None
+    except Exception as e:
+        print(f"Error extracting location: {e}")
+        return None
+
+# YouTubePlayer class to handle music playback
+class YouTubePlayer:
+    def __init__(self):
+        self.process = None
+        self.audio_thread = None
+        self.stop_event = threading.Event()
+        self.pause_event = threading.Event()
+        self.current_url = None
+
+    def get_youtube_audio_url(self, query):
+        yt_search = YoutubeSearch(query, max_results=1).to_dict()
+        if not yt_search:
+            return None
+
+        yt_url = f"https://www.youtube.com/watch?v={yt_search[0]['id']}"
+
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'quiet': True,
+            'noplaylist': True
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(yt_url, download=False)
+            audio_url = info_dict['url']
+
+        return audio_url
     
+    
+    def play_stream(self, audio_url):
+        self.process = (
+            ffmpeg
+            .input(audio_url)
+            .output('pipe:', format='wav')
+            .run_async(pipe_stdout=True, pipe_stderr=True)
+        )
+
+        p = pyaudio.PyAudio()
+        self.stream_out = p.open(format=pyaudio.paInt16,
+                                 channels=2,
+                                 rate=44100,
+                                 output=True)
+
+        while not self.stop_event.is_set():
+            while self.pause_event.is_set() : pass
+            data = self.process.stdout.read(4096)
+            #print(self.stop_event)
+            if not data:
+                break
+            self.stream_out.write(data)
+
+        self.stream_out.stop_stream()
+        self.stream_out.close()
+        p.terminate()
+        self.process.stdout.close()
+
+    def play(self, query):
+        audio_url = self.get_youtube_audio_url(query)
+        if audio_url is None:
+            print("No results found for the query.")
+            return 
+        self.pause_event.clear()
+        self.stop_event.clear()
+        self.audio_thread = threading.Thread(target=self.play_stream, args=(audio_url,))
+        
+        self.audio_thread.start()
+
+      
+        return f"Playing '{query}' on YouTube Music."
+
+    def stop(self):
+        if self.process:
+            
+            self.process = None
+            self.stop_event.set()
+        if self.audio_thread and self.audio_thread.is_alive():
+            self.audio_thread.join()
+            self.audio_thread = None
+
+    def pause(self):
+        if self.process and not self.pause_event.is_set():
+            self.pause_event.set()
+            return "Music playback paused."
+        return "No music is currently playing."
+
+    def resume(self):
+        if self.process and self.pause_event.is_set():
+            self.pause_event.clear()
+            
+            return "Music playback resumed."
+        return "No music is currently paused."
+
+
+
+# Function to handle user input
+def handle_user_input(question):
+    user_input = entry.get()
+    entry.delete(0, tk.END)
+
+    chat_area.insert(tk.END, f"You: {user_input}\n")
+    chat_area.update_idletasks()
+
+    # Check for stop playback command
+    if user_input.lower() in ["stop music", "stop song", "stop playback"]:
+        if youtubeplayer:
+            youtubeplayer.stop()
+            response = "Music playback stopped."
+        else:
+            response = "No music is currently playing."
+        simulate_typing(response, chat_area)
+        return
+    
+    # Check for pause playback command
+    elif user_input.lower() in ["pause music", "pause song", "pause playback"]:
+        if youtubeplayer:
+            response = youtubeplayer.pause()
+        else:
+            response = "No music is currently playing."
+        simulate_typing(response, chat_area)
+        return
+    
+    # Check for resume playback command
+    elif user_input.lower() in ["resume music", "resume song", "resume playback"]:
+        if youtubeplayer:
+            response = youtubeplayer.resume()
+        else:
+            response = "No music is currently paused."
+        simulate_typing(response, chat_area)
+        return
+
+    # Check for exit command
+    elif user_input.lower() == "exit":
+        
+        exit_app()
+        
+        return
+
+    # Check for clear chat command
+    elif user_input.lower() == "clear chat":
+        clear_chat()
+        return
+
+    
+    
+    # Check for weather query
+    elif "weather" in user_input.lower():
+        response = get_weather(user_input)
+        simulate_typing(response, chat_area)
+        return
+
+    # Check if input is a song request
+    elif "play" in user_input.lower():
+        if youtubeplayer:
+            song_query = user_input.replace("play", "").strip()
+            response = youtubeplayer.play(song_query)
+        else:
+            response = "YouTube player is not initialized."
+        simulate_typing(response, chat_area)
+        return
     else:
         # Uses Multithreading for quick answering
         with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
-            future_math = executor.submit(solve_math, question)
-            future_equation = executor.submit(solve_equation, question)
-            future_answer = executor.submit(get_answer, question, data)
+            future_math = executor.submit(solve_math, user_input)
+            future_equation = executor.submit(solve_equation, user_input)
+            future_answer = executor.submit(get_answer, user_input, data)
             
             math_answer = future_math.result()
             equation_answer = future_equation.result()
             dataset_answer = future_answer.result()
             
-            if dataset_answer:
-                answer = "Dataset: " + dataset_answer
-            elif math_answer:
+            
+            if math_answer:
                 answer = math_answer
             elif equation_answer:
                 answer = equation_answer
+            elif dataset_answer:
+                answer = "Dataset: " + dataset_answer
             else:
                 model, tokenizer = fallbackai.load_text_generation_model()
-                response = fallbackai.local_text_generation(question, model, tokenizer)
+                response = fallbackai.local_text_generation(user_input, model, tokenizer)
                 answer = response
     
     # Print the answer with simulated typing effect
     simulated_response = f"{MODEL_NAME} {MODEL_VERSION}: {answer}\n"
     simulate_typing(simulated_response, chat_area)
-    
-    # Collect feedback
-    user_feedback = input("Is the generated text correct? (y/n/s): ")
-    if user_feedback.lower() == 'n':
-        correct_answer = input("Please provide the correct answer: ")
-        update_feedback_csv(question, correct_answer)
-        print("Thank you for your feedback! It has been saved.")
-    elif user_feedback.lower() == 'y':
-        print("Thank you for confirming the generated text.")
+
+    # Provide feedback option
+    #chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Was this answer helpful? (yes/no)\n")
+
+# Function to handle user feedback
+def handle_feedback(event=None):
+    feedback_input = entry.get().strip().lower()
+    entry.delete(0, tk.END)
+
+    if feedback_input in ["yes", "no"]:
+        if feedback_input == "no":
+            # Request for correct answer from user
+            chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Please provide the correct answer.\n")
+            entry.bind("<Return>", handle_corrected_answer)
+        else:
+            chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Thank you for your feedback!\n")
+            entry.bind("<Return>", handle_user_input)
     else:
-        pass  # Handle other cases if needed
+        chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Please answer with 'yes' or 'no'.\n")
+
+# Function to handle corrected answer from user
+def handle_corrected_answer(event=None):
+    corrected_answer = entry.get().strip()
+    entry.delete(0, tk.END)
+
+    # Get the last user query from the chat area
+    chat_text = chat_area.get('1.0', tk.END).strip().split('\n')
+    last_user_query = next((line for line in reversed(chat_text) if line.startswith("You: ")), None)
+    if last_user_query:
+        last_user_query = last_user_query.replace("You: ", "")
+        update_entry('token.csv', last_user_query, corrected_answer)
+        update_feedback_csv(last_user_query, corrected_answer)
+        chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Thank you! The answer has been updated.\n")
+    else:
+        chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Sorry, I couldn't find the previous question.\n")
+    
+    entry.bind("<Return>", handle_user_input)
 
 # Function for when "Enter" key is pressed
 def on_enter(event):
+    global question
     question = entry.get().strip()
     if question:
-        chat_area.insert(tk.END, f"You: {question}\n")
-        handle_question(question)
-        entry.delete(0, tk.END)
+        handle_user_input(question)
+        global history
+        history.append(question)  # Append the current question to history
+        entry.delete(0, tk.END) 
+
+
+#init youtubeplayer instance
+youtubeplayer=YouTubePlayer()
 
 # Ensure CSV and dataset are loaded correctly
 dataset_path = 'token.csv'
@@ -212,6 +454,26 @@ ensure_feedback_csv()
 root = tk.Tk()
 root.title("WATI Assistant")
 root.configure(bg='#1e1e1e')
+  
+
+
+# History to store user inputs
+history = []
+history_index = -1  # Index to navigate through history
+
+# Function to handle up arrow key press
+def on_up_arrow(event):
+    global history_index
+    if history:
+        history_index = (history_index - 1) % len(history)
+        entry.delete(0, tk.END)
+        entry.insert(0, history[history_index])
+
+
+
+
+
+    
 
 # Create chat display area
 chat_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, bg='#1e1e1e', fg='white', font=('Helvetica', 12))
@@ -224,6 +486,8 @@ entry_frame.pack(padx=10, pady=10, fill=tk.X)
 entry = tk.Entry(entry_frame, bg='#2e2e2e', fg='white', font=('Helvetica', 12))
 entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 entry.bind("<Return>", on_enter)
+entry.bind('<Up>', on_up_arrow)  # Bind the up arrow key
+
 
 # Create send button
 send_button = tk.Button(entry_frame, text="Send", command=lambda: on_enter(None), bg='#2e2e2e', fg='white', font=('Helvetica', 12))
@@ -233,7 +497,11 @@ send_button.pack(side=tk.RIGHT, padx=5)
 clear_button = tk.Button(root, text="Clear", command=clear_chat, bg='#2e2e2e', fg='white', font=('Helvetica', 12), width=10)
 clear_button.pack(padx=10, pady=10)
 
+# Create exit button
+exit_button = tk.Button(root, text="Exit", command=exit_app, bg='#2e2e2e', fg='white', font=('Helvetica', 12), width=10)
+exit_button.pack(padx=10, pady=10)
 
 
-# Start the the ui loop
+
+# Start the UI loop
 root.mainloop()
