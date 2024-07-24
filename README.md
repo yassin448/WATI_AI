@@ -1,6 +1,6 @@
 # WATI Assistant README
 
-Welcome to WATI (What AI)! This is an AI assistant programmed to handle various types of questions and tasks. Below are details on how to set up and use the assistant effectively.
+Welcome to WATI (Wise Ai for Textual Interaction)! This is an AI assistant programmed to handle various types of questions and tasks. Below are details on how to set up and use the assistant effectively.
 
 ## Features
 
@@ -30,7 +30,7 @@ Welcome to WATI (What AI)! This is an AI assistant programmed to handle various 
    - Ensure `Aidata.py` contains the text generation model setup (`load_text_generation_model()`).
 
 4. **Run the Program**:
-   - Execute `python your_program_name.py` to start the WATI Assistant.
+   - Execute `python Ai.py` to start the WATI Assistant.
 
 ## Usage
 
@@ -97,6 +97,18 @@ exit
 ```
 WATI 2.0: Goodbye!
 ```
+### Example 6: Additional Command 
+
+**User Input**:  
+```
+the question then --no dataset
+```
+
+**Expected Output**:  
+```
+WATI 2.0: (Output will use GPT2 only while answering this Question)
+```
+
 
 ## Feedback
 
@@ -117,4 +129,4 @@ This project is licensed under the [MIT License](link-to-your-license-file).
 
 ---
 
-Adjust the sections and details according to your specific setup and preferences. This README will help users understand how to use your AI assistant and encourage contributions and feedback.
+
