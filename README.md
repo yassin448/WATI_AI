@@ -107,6 +107,10 @@ WATI 2.0: Goodbye!
 
 Contributions and improvements to the assistant's functionality are welcome. Please fork the repository, make your changes, and submit a pull request.
 
+## Update v(2.2)
+
+Bug fixes :  Fixed equation and maths functions not functioning properly.
+New Features: Add the ability to navigate to your previous Questions using up arrow key.
 ## License
 
 This project is licensed under the [MIT License](link-to-your-license-file).
