@@ -6,8 +6,14 @@ client = Groq(
     api_key=os.environ.get("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"),
 )
 
-# Initialize conversational memory
-conversation_history = []
+# Initialization message
+initial_message = {
+    "role": "system", 
+    "content": "You are an AI assistant created by [yassin]. Your purpose is to assist users with their queries."
+}
+
+# Initialize conversational memory with the initial message
+conversation_history = [initial_message]
 
 def get_token_length(text):
     # This is a simple approximation of token length
@@ -19,7 +25,7 @@ def truncate_conversation_history():
     total_length = sum(get_token_length(message["content"]) for message in conversation_history)
     
     while total_length > 1024:
-        removed_message = conversation_history.pop(0)  # Remove the oldest message
+        removed_message = conversation_history.pop(1)  # Remove the oldest user/assistant message, keep initial message
         total_length -= get_token_length(removed_message["content"])
 
 def get_Groq_response(user_input):

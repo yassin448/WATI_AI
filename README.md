@@ -1,132 +1,101 @@
-# WATI Assistant README
+# WATI Assistant
 
-Welcome to WATI (Wise Ai for Textual Interaction)! This is an AI assistant programmed to handle various types of questions and tasks. Below are details on how to set up and use the assistant effectively.
+WATI Assistant (Wise Ai for Textual Interaction) is an AI-powered assistant with a variety of features, including conversational abilities, arithmetic and equation solving, weather updates, YouTube music playback, and more. This assistant uses a combination of pre-trained models, semantic similarity, and fallback mechanisms to provide accurate and helpful responses.
 
 ## Features
 
-- **Dataset Handling**: Utilizes a dataset (`token.csv`) for answering frequently asked questions.
-- **Mathematical Queries**: Solves arithmetic and algebraic equations using natural language processing (NLP).
-- **Fallback to Text Generation**: Uses a pre-trained text generation model (GPT-2) when specific answers are not found in the dataset or for general conversation.
-- **Feedback Mechanism**: Allows users to provide corrections to answers for continuous improvement.
-- **User Interface**: Built with tkinter for a simple, interactive user interface.
+- **Conversational AI:** Uses a pre-trained language model for generating responses.
+- **Arithmetic and Equation Solving:** Solves arithmetic expressions and algebraic equations.
+- **Weather Updates:** Fetches weather information for specified locations.
+- **YouTube Music Playback:** Plays, pauses, and stops music from YouTube.
+- **Sentiment Analysis:** Analyzes the sentiment of user queries and provides emotionally responsive answers.
+- **Feedback Mechanism:** Allows users to provide feedback and update answers in the dataset.
+- **Simulated Typing Effect:** Displays responses with a simulated typing effect for a more human-like interaction.
+- **User History Navigation:** Navigate through user input history with the up arrow key.
+- **Dynamic Chat Interface:** Clear chat history, exit the application, and send queries through a user-friendly interface.
 
-## Setup Instructions
+### Prerequisites
 
-1. **Dependencies**:
-   - Python 3.x
-   - Required Python libraries (install via `pip install <library>`):
-     - tkinter
-     - pandas
-     - spacy
-     - sympy
-     - textblob
-     - concurrent.futures
+Ensure you have the following software installed on your system:
 
-2. **Dataset Setup**:
-   - Ensure `token.csv` is placed in the same directory as the program.
-   - The dataset should have columns named `ques` (questions) and `ans` (answers).
+- Python 3.7 or higher
+- pip (Python package installer)
 
-3. **Text Generation Model**:
-   - Ensure `Aidata.py` contains the text generation model setup (`load_text_generation_model()`).
+### Required Libraries
 
-4. **Run the Program**:
-   - Execute `python Ai.py` to start the WATI Assistant.
+The following Python libraries are required for the WATI Assistant to function:
+
+- `tkinter`
+- `pandas`
+- `spacy`
+- `re`
+- `os`
+- `math`
+- `time`
+- `random`
+- `sympy`
+- `concurrent.futures`
+- `csv`
+- `pytube`
+- `youtube_search`
+- `yt_dlp`
+- `ffmpeg`
+- `pyaudio`
+- `requests`
+- `threading`
+- `textblob`
+- `datetime`
+
+You can install these libraries using pip:
+
+```bash
+pip install pandas spacy sympy pytube youtube-search yt-dlp pyaudio requests textblob
+python -m spacy download en_core_web_sm
+```
+
+### Running the Application
+
+1. **Clone the Repository** (if applicable) or download the script files to your local machine.
+2. **Navigate to the Directory** containing the script files.
+3. **Run the Script**:
+
+```bash
+python3 Ai.py
+```
 
 ## Usage
 
-- **Interaction**: Enter questions or commands in the entry field and press Enter or click "Send".
-- **Exiting**: Type "exit" to terminate the program.
-## Examples
+Once the application is running, you can interact with WATI Assistant through the provided user interface. Type your questions or commands into the input field and press `Enter` or click the `Send` button. 
 
-### Example 1: Dataset Query
+### Available Commands:
 
-**User Input**:  
-```
-What is the capital of France?
-```
+- **Arithmetic and Equations:** Ask math-related questions or provide equations to solve.
+  - Example: `Solve 2 + 2`, `Solve x + 2 = 5`
+- **Weather Updates:** Ask for weather information.
+  - Example: `What is the weather in New York?`
+- **YouTube Music Playback:** Play, pause, resume, or stop music from YouTube.
+  - Example: `Play music Despacito`, `Stop music`
+- **Clear Chat:** Type `clear chat` to clear the chat history.
+- **Exit Application:** Type `exit` to close the application.
 
-**Expected Output**:  
-```
-WATI 2.0: Dataset: Paris
-```
+### Feedback Mechanism
 
-### Example 2: Mathematical Query
+If the assistant provides an incorrect answer, you can correct it by providing feedback:
 
-**User Input**:  
-```
-What is the square root of 25?
-```
+1. Type `correct <your query>` to initiate the correction process.
+2. Provide the corrected answer when prompted.
 
-**Expected Output**:  
-```
-WATI 2.0: The result of 'sqrt(25)' is 5.0.
-```
+### Navigation
 
-### Example 3: Algebraic Equation
+Use the up arrow key to navigate through your input history.
 
-**User Input**:  
-```
-Solve for x: 2x + 5 = 15
-```
-
-**Expected Output**:  
-```
-WATI 2.0: The solution to the equation '2*x + 5 == 15' is {x: 5}.
-```
-
-### Example 4: Text Generation Fallback
-
-**User Input**:  
-```
-Can you tell me about artificial intelligence?
-```
-
-**Expected Output**:  
-```
-WATI 2.0: (Generated response using GPT-2 model)
-```
-
-### Example 5: Exit Command
-
-**User Input**:  
-```
-exit
-```
-
-**Expected Output**:  
-```
-WATI 2.0: Goodbye!
-```
-### Example 6: Additional Command 
-
-**User Input**:  
-```
-the question then --no dataset
-```
-
-**Expected Output**:  
-```
-WATI 2.0: (Output will use GPT2 only while answering this Question)
-```
-
-
-## Feedback
-
-- If the assistant provides incorrect information, you can manually correct it during interaction.
-- Corrections are saved to `feedback.csv` for future improvements.
-
-## Contributing
-
-Contributions and improvements to the assistant's functionality are welcome. Please fork the repository, make your changes, and submit a pull request.
-
-## Update v(2.2)
-
-Bug fixes :  Fixed equation and maths functions not functioning properly.
-New Features: Add the ability to navigate to your previous Questions using up arrow key.
 ## License
 
-This project is licensed under the [MIT License](link-to-your-license-file).
+This project is licensed under the MIT License.
 
----
+## Acknowledgements
 
-
+- [spaCy](https://spacy.io/)
+- [YouTube Data API](https://developers.google.com/youtube/v3)
+- [OpenWeatherMap](https://openweathermap.org/)
+- [TextBlob](https://textblob.readthedocs.io/en/dev/)
