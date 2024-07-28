@@ -19,7 +19,8 @@ import pyaudio
 import requests
 import threading
 from textblob import TextBlob
-from pynput import keyboard
+from datetime import datetime
+
 
 
 # Global variable to hold instance of YouTubePlayer
@@ -30,6 +31,9 @@ history = None
 
 #global question
 question = None
+
+#is answering
+isanswering =False
 
 # Load spaCy model with word vectors (for semantic similarity)
 nlp = spacy.load("en_core_web_sm")
@@ -43,8 +47,8 @@ WEATHER_API_KEY = 'c27ea1d81b6a244f89ce37c2c535330c'
 
 # Model information
 MODEL_NAME = "WATI"
-MODEL_VERSION = "2.2"
-fallbackai.load_text_generation_model()  # Loads the fallback model (GPT-2)
+MODEL_VERSION = "2.4"
+
 
 # Ensure feedback.csv file with required headers
 def ensure_feedback_csv():
@@ -152,13 +156,46 @@ def get_answer(question, data):
             return data.loc[best_match_index, 'ans']
     return None
 
-# Function to introduce simulated typing delay
-def simulate_typing(response, chat_area):
+def tell_time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
+def correctQuestion(question):
+    if "correct" in question.lower():
+        str(question).replace("correct ","")
+        blob = TextBlob(question)
+        response = blob.correct()
+        
+        return response
+
+def analyze_sentiment(text):
+    blob = TextBlob(text)
+    return blob.sentiment.polarity
+
+def get_emotional_response(sentiment,answer):
+    if sentiment > 0.5:
+        return f"{answer} 😊"
+    elif sentiment > 0:
+        return f"{answer}🙂"
+    elif sentiment == 0:
+        return f"{answer} 😐"
+    elif sentiment > -0.5:
+        return f"{answer} 😟"
+    else:
+         return f"{answer} 😢"
+
+
+def write_to_chat_area(response):
     for char in response:
         chat_area.insert(tk.END, char)
         chat_area.update_idletasks()
         time.sleep(random.uniform(0.02, 0.08))
     chat_area.insert(tk.END, "\n")
+# create a new thread
+def simulate_typing(answer):
+    t = threading.Thread(target=write_to_chat_area , args=(answer,))
+    t.start()
+    
 
 # Function to clear the chat area and input
 def clear_chat():
@@ -166,10 +203,19 @@ def clear_chat():
     entry.delete(0, tk.END)
     chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Welcome to WATI Assistant! How can I help you today?\n")
 
+def _on_mousewheel(self, event):
+    self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 # Function to exit the application
 def exit_app():
-    root.destroy()
-    os._exit(0)
+     
+     root.quit()  # Close the Tkinter window
+     root.destroy()  # Destroy the root window
+     os._exit(0)  # Exit the Python interpreter
+     
+    
+     
+    
+    
 
 # Function to get weather information
 def get_weather(question):
@@ -304,14 +350,14 @@ class YouTubePlayer:
 
 # Function to handle user input
 def handle_user_input(question):
-    user_input = entry.get()
+    question = entry.get()
     entry.delete(0, tk.END)
 
-    chat_area.insert(tk.END, f"You: {user_input}\n")
+    chat_area.insert(tk.END, f"You: {question}\n")
     chat_area.update_idletasks()
-
+         
     # Check for stop playback command
-    if user_input.lower() in ["stop music", "stop song", "stop playback"]:
+    if question.lower() in ["stop music", "stop song", "stop playback"]:
         if youtubeplayer:
             youtubeplayer.stop()
             response = "Music playback stopped."
@@ -321,7 +367,7 @@ def handle_user_input(question):
         return
     
     # Check for pause playback command
-    elif user_input.lower() in ["pause music", "pause song", "pause playback"]:
+    elif question.lower() in ["pause music", "pause song", "pause playback"]:
         if youtubeplayer:
             response = youtubeplayer.pause()
         else:
@@ -330,49 +376,56 @@ def handle_user_input(question):
         return
     
     # Check for resume playback command
-    elif user_input.lower() in ["resume music", "resume song", "resume playback"]:
+    elif question.lower() in ["resume music", "resume song", "resume playback"]:
         if youtubeplayer:
             response = youtubeplayer.resume()
         else:
             response = "No music is currently paused."
         simulate_typing(response, chat_area)
         return
-
+    elif "--no dataset" in question.lower():
+        question = question.replace("--no dataset","")
+        # Fallback to Groq model for answering
+        response = fallbackai.get_Groq_response(question)
+        sentiment = analyze_sentiment(question)
+        answer = get_emotional_response(sentiment,response)
+        simulate_typing(response)
+        
     # Check for exit command
-    elif user_input.lower() == "exit":
-        
-        exit_app()
-        
-        return
+    elif question.lower() == "exit":
+     exit_app()
+     return
 
     # Check for clear chat command
-    elif user_input.lower() == "clear chat":
+    elif question.lower() == "clear chat":
         clear_chat()
         return
 
-    
+    elif "correct" in question.lower():
+        response = correctQuestion(question)
+        answer = response
     
     # Check for weather query
-    elif "weather" in user_input.lower():
-        response = get_weather(user_input)
-        simulate_typing(response, chat_area)
+    elif "weather" in question.lower():
+        response = get_weather(question)
+        simulate_typing(response)
         return
 
     # Check if input is a song request
-    elif "play" in user_input.lower():
+    elif "play" and "music" in question.lower():
         if youtubeplayer:
-            song_query = user_input.replace("play", "").strip()
+            song_query = question.replace("play", "").strip()
             response = youtubeplayer.play(song_query)
         else:
             response = "YouTube player is not initialized."
-        simulate_typing(response, chat_area)
+        simulate_typing(response)
         return
     else:
         # Uses Multithreading for quick answering
         with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
-            future_math = executor.submit(solve_math, user_input)
-            future_equation = executor.submit(solve_equation, user_input)
-            future_answer = executor.submit(get_answer, user_input, data)
+            future_math = executor.submit(solve_math, question)
+            future_equation = executor.submit(solve_equation, question)
+            future_answer = executor.submit(get_answer, question, data)
             
             math_answer = future_math.result()
             equation_answer = future_equation.result()
@@ -384,15 +437,18 @@ def handle_user_input(question):
             elif equation_answer:
                 answer = equation_answer
             elif dataset_answer:
-                answer = "Dataset: " + dataset_answer
+                sentiment = analyze_sentiment(question)
+                answer = "Dataset: " + get_emotional_response(sentiment,dataset_answer)
             else:
-                model, tokenizer = fallbackai.load_text_generation_model()
-                response = fallbackai.local_text_generation(user_input, model, tokenizer)
-                answer = response
+                # Fallback to Groq model for answering
+                response = fallbackai.get_Groq_response(question)
+                sentiment = analyze_sentiment(question)
+                answer = get_emotional_response(sentiment,response)
     
     # Print the answer with simulated typing effect
-    simulated_response = f"{MODEL_NAME} {MODEL_VERSION}: {answer}\n"
-    simulate_typing(simulated_response, chat_area)
+    if answer:
+     simulated_response = f"{MODEL_NAME} {MODEL_VERSION}: {answer}\n"
+     simulate_typing(simulated_response)
 
     # Provide feedback option
     #chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Was this answer helpful? (yes/no)\n")
@@ -407,7 +463,7 @@ def handle_feedback(event=None):
             # Request for correct answer from user
             chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Please provide the correct answer.\n")
             entry.bind("<Return>", handle_corrected_answer)
-        else:
+        elif feedback_input =='yes':
             chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Thank you for your feedback!\n")
             entry.bind("<Return>", handle_user_input)
     else:
@@ -433,15 +489,14 @@ def handle_corrected_answer(event=None):
 
 # Function for when "Enter" key is pressed
 def on_enter(event):
-    global question
+    global question, history_index
     question = entry.get().strip()
     if question:
         handle_user_input(question)
-        global history
         history.append(question)  # Append the current question to history
-        entry.delete(0, tk.END) 
-
-
+        history_index = len(history)  # Reset history index
+        entry.delete(0, tk.END)
+        
 #init youtubeplayer instance
 youtubeplayer=YouTubePlayer()
 
@@ -453,7 +508,7 @@ ensure_feedback_csv()
 # Create main window
 root = tk.Tk()
 root.title("WATI Assistant")
-root.configure(bg='#1e1e1e')
+root.configure(bg='#343541')
   
 
 
@@ -472,29 +527,31 @@ def on_up_arrow(event):
 
 
 # Create chat display area
-chat_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, bg='#1e1e1e', fg='white', font=('Helvetica', 12))
+chat_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, bg='#40414f', fg='#d1d5db', font=('Helvetica', 12), padx=10, pady=10, insertbackground='white', highlightthickness=0, borderwidth=0)
 chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Welcome to WATI Assistant! How can I help you today?\n")
 
-# Create entry widget
-entry_frame = tk.Frame(root, bg='#1e1e1e')
+
+entry_frame = tk.Frame(root, bg='#343541')
 entry_frame.pack(padx=10, pady=10, fill=tk.X)
-entry = tk.Entry(entry_frame, bg='#2e2e2e', fg='white', font=('Helvetica', 12))
+entry = tk.Entry(entry_frame, bg='#40414f', fg='#d1d5db', font=('Helvetica', 12), insertbackground='white', highlightthickness=0, borderwidth=0)
 entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 entry.bind("<Return>", on_enter)
 entry.bind('<Up>', on_up_arrow)  # Bind the up arrow key
+chat_area.bind_all("<MouseWheel>", _on_mousewheel)
+
 
 
 # Create send button
-send_button = tk.Button(entry_frame, text="Send", command=lambda: on_enter(None), bg='#2e2e2e', fg='white', font=('Helvetica', 12))
+send_button = tk.Button(entry_frame, text="Send", command=lambda: on_enter(None), bg='#4f525d', fg='white', font=('Helvetica', 12), highlightthickness=0, borderwidth=0)
 send_button.pack(side=tk.RIGHT, padx=5)
 
 # Create clear button
-clear_button = tk.Button(root, text="Clear", command=clear_chat, bg='#2e2e2e', fg='white', font=('Helvetica', 12), width=10)
+clear_button = tk.Button(root, text="Clear", command=clear_chat, bg='#4f525d', fg='white', font=('Helvetica', 12), width=10, highlightthickness=0, borderwidth=0)
 clear_button.pack(padx=10, pady=10)
 
 # Create exit button
-exit_button = tk.Button(root, text="Exit", command=exit_app, bg='#2e2e2e', fg='white', font=('Helvetica', 12), width=10)
+exit_button = tk.Button(root, text="Exit", command=exit_app, bg='#4f525d', fg='white', font=('Helvetica', 12), width=10, highlightthickness=0, borderwidth=0)
 exit_button.pack(padx=10, pady=10)
 
 

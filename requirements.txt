@@ -1,0 +1,10 @@
+pandas
+spacy
+sympy
+pytube
+youtube-search
+yt-dlp
+ffmpeg-python
+pyaudio
+requests
+textblob
