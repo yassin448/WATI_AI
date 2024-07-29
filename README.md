@@ -76,6 +76,7 @@ Once the application is running, you can interact with WATI Assistant through th
 - **YouTube Music Playback:** Play, pause, resume, or stop music from YouTube.
   - Example: `Play music Despacito`, `Stop music`
 - **Clear Chat:** Type `clear chat` to clear the chat history.
+- - **Aditional command:** Type `--no dataset` at the end of your question to answer without the default dataset.
 - **Exit Application:** Type `exit` to close the application.
 
 ### Feedback Mechanism
