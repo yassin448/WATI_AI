@@ -92,7 +92,7 @@ Use the up arrow key to navigate through your input history.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the GNU GPL License.
 
 ## Acknowledgements
 
