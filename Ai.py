@@ -438,17 +438,17 @@ def handle_user_input(question):
                 answer = equation_answer
             elif dataset_answer:
                 sentiment = analyze_sentiment(question)
-                answer = "Dataset: " + get_emotional_response(sentiment,dataset_answer)
+                answer = MODEL_NAME+" v"+MODEL_VERSION+" Dataset: " + get_emotional_response(sentiment,dataset_answer)
             else:
                 # Fallback to Groq model for answering
                 response = fallbackai.get_Groq_response(question)
                 sentiment = analyze_sentiment(question)
-                answer = get_emotional_response(sentiment,response)
+                answer = MODEL_NAME+" v"+MODEL_VERSION+get_emotional_response(sentiment,response)
+                simulate_typing(answer)
+                
+                
     
-    # Print the answer with simulated typing effect
-    if answer:
-     simulated_response = f"{MODEL_NAME} {MODEL_VERSION}: {answer}\n"
-     simulate_typing(simulated_response)
+    
 
     # Provide feedback option
     #chat_area.insert(tk.END, f"{MODEL_NAME} {MODEL_VERSION}: Was this answer helpful? (yes/no)\n")
